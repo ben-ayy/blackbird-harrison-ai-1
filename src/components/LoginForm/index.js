@@ -17,19 +17,33 @@ export default function LoginForm() {
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
+    var validEmail = validateEmail(email);
+    var validPassword = validatePassword(password);
+    if (validEmail && validPassword) {
+      return true;
+    }
+    return false;
+  }
+
+  const validateEmail = (email) => {
     var validator = require("email-validator");
     if (validator.validate(email)) {
-      if (password.length >= 8) {
-        if ( /[A-Z]/.test(password)) {
-          if ( /[a-z]/.test(password)) {
-            if( /[0-9]/.test(password)) {
-              if ( /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)) {
-                return true;
-              } 
+      return true;
+    }
+    return false;
+  }
+
+  const validatePassword = (password) => {
+    if (password.length >= 8) {
+      if ( /[A-Z]/.test(password)) {
+        if ( /[a-z]/.test(password)) {
+          if( /[0-9]/.test(password)) {
+            if ( /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)) {
+              return true;
             } 
           } 
         } 
-      }
+      } 
     }
     return false;
   }
