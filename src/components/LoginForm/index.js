@@ -19,12 +19,19 @@ export default function LoginForm() {
     const password = data.get('password');
     var validator = require("email-validator");
     if (validator.validate(email)) {
-      return true;
-    } else {
-      return false;
+      if (password.length >= 8) {
+        if ( /[A-Z]/.test(password)) {
+          if ( /[a-z]/.test(password)) {
+            if( /[0-9]/.test(password)) {
+              if ( /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)) {
+                return true;
+              } 
+            } 
+          } 
+        } 
+      }
     }
-    // Add validation code here
-
+    return false;
   }
 
   const handleSubmit = (event) => {
