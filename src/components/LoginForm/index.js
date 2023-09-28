@@ -17,7 +17,12 @@ export default function LoginForm() {
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
-
+    var validator = require("email-validator");
+    if (validator.validate(email)) {
+      return true;
+    } else {
+      return false;
+    }
     // Add validation code here
 
   }
@@ -29,8 +34,11 @@ export default function LoginForm() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    validateForm(event);
-    setShowAlert("Login Successful");
+    //validateForm(event);
+    // setShowAlert("Login Successful");
+    if (validateForm(event)) {
+      setShowAlert("Login Successful");
+    }
   };
 
   return (
