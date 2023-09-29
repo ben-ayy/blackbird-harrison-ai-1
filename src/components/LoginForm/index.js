@@ -9,6 +9,29 @@ import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import logo from '../../assets/logo.svg';
 
+export function validateEmail(email) {
+  var validator = require("email-validator");
+  if (validator.validate(email)) {
+    return true;
+  }
+  return false;
+}
+
+export function validatePassword(password) {
+  if (password.length >= 8) {
+    if ( /[A-Z]/.test(password)) {
+      if ( /[a-z]/.test(password)) {
+        if( /[0-9]/.test(password)) {
+          if ( /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)) {
+            return true;
+          } 
+        } 
+      } 
+    } 
+  }
+  return false;
+}
+
 
 export default function LoginForm() {
   const [validEmail, setValidEmail] = useState(false);
@@ -23,29 +46,6 @@ export default function LoginForm() {
     setValidPassword(validatePassword(password));
     if (validEmail && validPassword) {
       return true;
-    }
-    return false;
-  }
-
-  const validateEmail = (email) => {
-    var validator = require("email-validator");
-    if (validator.validate(email)) {
-      return true;
-    }
-    return false;
-  }
-
-  const validatePassword = (password) => {
-    if (password.length >= 8) {
-      if ( /[A-Z]/.test(password)) {
-        if ( /[a-z]/.test(password)) {
-          if( /[0-9]/.test(password)) {
-            if ( /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)) {
-              return true;
-            } 
-          } 
-        } 
-      } 
     }
     return false;
   }
