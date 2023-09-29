@@ -11,14 +11,16 @@ import logo from '../../assets/logo.svg';
 
 
 export default function LoginForm() {
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const validateForm = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
-    var validEmail = validateEmail(email);
-    var validPassword = validatePassword(password);
+    setValidEmail(validateEmail(email));
+    setValidPassword(validatePassword(password));
     if (validEmail && validPassword) {
       return true;
     }
@@ -111,6 +113,8 @@ export default function LoginForm() {
               margin="normal"
               required
               fullWidth
+              error={!validEmail}
+              helperText={validEmail ? "" : "Invalid Email"}
               id="email"
               label="Email Address"
               name="email"
@@ -121,6 +125,8 @@ export default function LoginForm() {
               margin="normal"
               required
               fullWidth
+              error={!validPassword}
+              helperText= {validPassword ? "" : "Invalid Password"}
               name="password"
               label="Password"
               type="password"
